@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		109C3E8424465B0700E08E4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C3E8324465B0700E08E4A /* AppDelegate.swift */; };
 		109C3E8624465B0700E08E4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C3E8524465B0700E08E4A /* SceneDelegate.swift */; };
-		109C3E8824465B0700E08E4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C3E8724465B0700E08E4A /* ViewController.swift */; };
 		109C3E8B24465B0700E08E4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109C3E8924465B0700E08E4A /* Main.storyboard */; };
 		109C3E8D24465B0900E08E4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 109C3E8C24465B0900E08E4A /* Assets.xcassets */; };
 		109C3E9024465B0900E08E4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109C3E8E24465B0900E08E4A /* LaunchScreen.storyboard */; };
+		109C3E9B24465DC300E08E4A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C3E9A24465DC300E08E4A /* Data.swift */; };
+		109C3E9D24465FF000E08E4A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C3E9C24465FF000E08E4A /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		109C3E8024465B0700E08E4A /* TempestPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempestPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C3E8324465B0700E08E4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		109C3E8524465B0700E08E4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		109C3E8724465B0700E08E4A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		109C3E8A24465B0700E08E4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		109C3E8C24465B0900E08E4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		109C3E8F24465B0900E08E4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		109C3E9124465B0900E08E4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		109C3E9A24465DC300E08E4A /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		109C3E9C24465FF000E08E4A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +60,38 @@
 			children = (
 				109C3E8324465B0700E08E4A /* AppDelegate.swift */,
 				109C3E8524465B0700E08E4A /* SceneDelegate.swift */,
-				109C3E8724465B0700E08E4A /* ViewController.swift */,
-				109C3E8924465B0700E08E4A /* Main.storyboard */,
+				109C3E9924465B7700E08E4A /* Models */,
+				109C3E9824465B3200E08E4A /* Storyboards */,
+				109C3E9724465B1900E08E4A /* View Controllers */,
 				109C3E8C24465B0900E08E4A /* Assets.xcassets */,
-				109C3E8E24465B0900E08E4A /* LaunchScreen.storyboard */,
 				109C3E9124465B0900E08E4A /* Info.plist */,
 			);
 			path = TempestPrototype;
+			sourceTree = "<group>";
+		};
+		109C3E9724465B1900E08E4A /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				109C3E9C24465FF000E08E4A /* MainViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		109C3E9824465B3200E08E4A /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				109C3E8924465B0700E08E4A /* Main.storyboard */,
+				109C3E8E24465B0900E08E4A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		109C3E9924465B7700E08E4A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				109C3E9A24465DC300E08E4A /* Data.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +165,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				109C3E8824465B0700E08E4A /* ViewController.swift in Sources */,
 				109C3E8424465B0700E08E4A /* AppDelegate.swift in Sources */,
+				109C3E9B24465DC300E08E4A /* Data.swift in Sources */,
 				109C3E8624465B0700E08E4A /* SceneDelegate.swift in Sources */,
+				109C3E9D24465FF000E08E4A /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +322,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = adamroney.TempestPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -312,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = adamroney.TempestPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

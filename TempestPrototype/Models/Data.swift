@@ -9,41 +9,49 @@
 import Foundation
 
 struct Station: Decodable {
-    let stationId: Int
-    let name: String
-    let publicName: String
-    let lat: Float
-    let long: Float
-    let timeZone: String
-    let elevation: Float
-    let isPublic: Bool
-    let status: [Int: String]
+	let station_id: Int
+	let station_name: String
+	let public_name: String
+	let latitude: Double
+	let longitude: Double
+	let timezone: String
+	let elevation: Double
+	let is_public: Bool
+	let status: Status
+	let station_units: Station_units
+	let outdoor_keys: [String]
+	let obs: [Obs]
 }
 
-struct StationUnits: Decodable {
-	let temp: String
-	let wind: String
-	let precip: String
-	let pressure: String
-	let distance: String
-	let direction: String
-	let other: String
+struct Status: Decodable {
+	let status_code: Int
+	let status_message: String
 }
 
-struct Weather: Decodable {
-	let timeStamp: Date
-	let airTemperature: Float
-	let barometricPressure: Float
-	let stationPressure: Float
-	let seaLevelPressure: Float
-	let relHumidity: Float
-	let lightningStrikeLastEpoch: Int
-	let lightningStrikeLastDistance: Int
-	let lightningStrikeCount: Int
-	let lightningStrikeCountLast3hr: Int
-	let heatIndex: Float
-	let dewPoint: Float
-	let wetBulbTemperature: Float
-	let deltaT: Float
-	let airDensity: Float
+struct Station_units: Codable {
+	let units_temp: String
+	let units_wind: String
+	let units_precip: String
+	let units_pressure: String
+	let units_distance: String
+	let units_direction: String
+	let units_other: String
+}
+
+struct Obs: Codable {
+	let timestamp: Int
+	let air_temperature: Double
+	let barometric_pressure: Double
+	let station_pressure: Double
+	let sea_level_pressure: Double
+	let relative_humidity: Int
+	let lightning_strike_last_epoch: Int
+	let lightning_strike_last_distance: Int
+	let lightning_strike_count: Int
+	let lightning_strike_count_last_3hr: Int
+	let heat_index: Double
+	let dew_point: Double
+	let wet_bulb_temperature: Double
+	let delta_t: Double
+	let air_density: Double
 }

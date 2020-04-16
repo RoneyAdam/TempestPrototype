@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var stationContainer: UIView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var tempLabel: UILabel!
-	@IBOutlet weak var tempUnitSegControl: UISegmentedControl!
+	@IBOutlet weak var tempImage: UIImageView!
 	@IBOutlet weak var locationLabel: UILabel!
 	@IBOutlet weak var loadingContainer: UIView!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -35,9 +35,10 @@ class MainViewController: UIViewController {
 			}
 		}
     }
-	
+
 	//Setup the loading view while fetching the data
 	func setupLoading() {
+		updateStyle()
 		stationContainer.layer.cornerRadius = 20
 		loadingContainer.layer.cornerRadius = 20
 		activityIndicator.startAnimating()
@@ -46,14 +47,57 @@ class MainViewController: UIViewController {
 	//Setup up view: assign values to labels, controls, etc.
 	func setup() {
 		//Make sure weather station isn't nil
-		guard let weatherStation = self.weatherStation else {
+		guard var weatherStation = weatherStation else {
 			print("Station is nil!"); return
 		}
 
-		//Setup title, temperature, and location
+		//Setup units, title, temperature, and location
+		
+		if let newWeatherStation = updateUnits() {
+			weatherStation = newWeatherStation
+		}
 		setupTitle(weatherStation.station_name)
-		setupTemp(weatherStation.obs[0].air_temperature)
 		setupLocation(weatherStation.latitude, weatherStation.longitude)
+	}
+	
+	//Setup style
+	func updateStyle() {
+		//Check user defaults for theme key
+		if UserDefaults.standard.object(forKey: "theme") == nil {
+			UserDefaults.standard.set(2, forKey: "theme")
+		}
+		
+		//Update theme
+		UIApplication.shared.windows.forEach({ window in
+			switch UserDefaults.standard.object(forKey: "theme") as? Int {
+				case 0:
+					window.overrideUserInterfaceStyle = .dark
+				case 1:
+					window.overrideUserInterfaceStyle = .light
+				default:
+					window.overrideUserInterfaceStyle = .unspecified
+			}
+		})
+	}
+	
+	func updateUnits() -> Station? {
+		guard var weatherStation = weatherStation else {
+			print("Weather Station is nil!"); return nil
+		}
+		//Check user defaults for units key
+		if UserDefaults.standard.object(forKey: "isImperial") == nil {
+			UserDefaults.standard.set(true, forKey: "isImperial")
+		}
+		
+		//Update all units based on user defaults
+		let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
+		weatherStation.station_units.units_other = isImperial ? "imperial" : "metric"
+		
+		//Set up temperature because unit has changed
+		setupTemp(weatherStation.obs[0].air_temperature)
+		
+		//Return the weather station that has new station units
+		return weatherStation
 	}
 	
 	func setupTitle(_ stationName: String) {
@@ -66,7 +110,8 @@ class MainViewController: UIViewController {
 	
 	func setupTemp (_ temp: Double) {
 		//Convert if needed and round (And remove trailing zero)
-		let temp = tempUnitSegControl.selectedSegmentIndex == 1 ? temp.rounded() : ((temp * 9.0/5.0) + 32).rounded()
+		let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
+		let temp = isImperial ? ((temp * 9.0/5.0) + 32).rounded() : temp.rounded()
 		
 		tempLabel.text = String(describing: temp).components(separatedBy: ".")[0] + "°"
 	}
@@ -91,13 +136,27 @@ class MainViewController: UIViewController {
 	}
 	
 	//MARK: Actions
-	@IBAction func tempUnitChanged(_ sender: UISegmentedControl) {
-		//Unwrap weather station and change temperature label value
-		if let weatherStation = weatherStation {
-			setupTemp(weatherStation.obs[0].air_temperature)
-		} else {
-			print("Weather station is nil!")
+	@IBAction func settingsTapped(_ sender: Any) {
+		let alertController = UIAlertController(title: nil, message: "/n", preferredStyle: UIAlertController.Style.actionSheet)
+		//Add settings VC as a child, then add the view as a subview
+		if let settingsViewController = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as? SettingsViewController {
+			settingsViewController.mainViewController = self
+			alertController.addChild(settingsViewController)
+			alertController.view.addSubview(settingsViewController.view)
 		}
+
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+
+		alertController.addAction(cancelAction)
+
+		DispatchQueue.main.async {
+			self.present(alertController, animated: true, completion:{})
+		}
+	}
+	
+	//Their's a werid dark/light mode bug with the nav bar. This line fixes it.
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		navigationController?.navigationBar.setNeedsLayout()
 	}
 	
 	//MARK: Data Fetching
@@ -128,8 +187,9 @@ class MainViewController: UIViewController {
 	//MARK: Segues
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "stationDetail", let weatherStation = weatherStation, let destination = segue.destination as? StationDetailViewController {
+			destination.mainViewController = self
 			destination.weatherStation = weatherStation
-			destination.title = weatherStation.station_name
+			destination.title = "Your Tempest"
 		}
 	}
 }

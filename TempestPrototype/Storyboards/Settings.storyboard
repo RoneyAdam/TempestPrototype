@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9WV-8d-hRf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Settings View Controller-->
+        <scene sceneID="ayE-nX-79F">
+            <objects>
+                <viewController id="9WV-8d-hRf" customClass="SettingsViewController" customModule="TempestPrototype" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A9k-NA-AER">
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theme: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXo-SZ-aU0">
+                                <rect key="frame" x="16" y="61" width="85" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RaU-jE-3jY">
+                                <rect key="frame" x="137" y="60" width="197" height="32"/>
+                                <segments>
+                                    <segment title="Dark"/>
+                                    <segment title="Light"/>
+                                    <segment title="System"/>
+                                </segments>
+                                <connections>
+                                    <action selector="themeValueChanged:" destination="9WV-8d-hRf" eventType="valueChanged" id="aKL-jX-VaK"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2T7-Bq-igV">
+                                <rect key="frame" x="137" y="107" width="137" height="32"/>
+                                <segments>
+                                    <segment title="Imperial"/>
+                                    <segment title="Metric"/>
+                                </segments>
+                                <connections>
+                                    <action selector="unitsValueChanged:" destination="9WV-8d-hRf" eventType="valueChanged" id="X6L-NO-HPH"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Units:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RE-4m-eWM">
+                                <rect key="frame" x="16" y="108" width="61" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="lXo-SZ-aU0" firstAttribute="centerY" secondItem="RaU-jE-3jY" secondAttribute="centerY" id="D1t-iz-93k"/>
+                            <constraint firstItem="7RE-4m-eWM" firstAttribute="centerY" secondItem="2T7-Bq-igV" secondAttribute="centerY" id="Geh-QV-WXM"/>
+                            <constraint firstItem="HnV-aD-NRi" firstAttribute="top" secondItem="RaU-jE-3jY" secondAttribute="top" constant="-16" id="Nem-e8-sHG"/>
+                            <constraint firstItem="HnV-aD-NRi" firstAttribute="trailing" secondItem="RaU-jE-3jY" secondAttribute="trailing" constant="16" id="WiZ-eb-MhB"/>
+                            <constraint firstItem="lXo-SZ-aU0" firstAttribute="leading" secondItem="HnV-aD-NRi" secondAttribute="leading" constant="16" id="gQv-R3-Bzh"/>
+                            <constraint firstItem="7RE-4m-eWM" firstAttribute="leading" secondItem="HnV-aD-NRi" secondAttribute="leading" constant="16" id="hIK-IH-KVQ"/>
+                            <constraint firstItem="2T7-Bq-igV" firstAttribute="leading" secondItem="RaU-jE-3jY" secondAttribute="leading" id="kbR-fP-S6g"/>
+                            <constraint firstItem="2T7-Bq-igV" firstAttribute="top" secondItem="RaU-jE-3jY" secondAttribute="bottom" constant="16" id="zTO-9c-DUs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HnV-aD-NRi"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="350" height="300"/>
+                    <size key="freeformSize" width="350" height="300"/>
+                    <connections>
+                        <outlet property="themeSegmentedControl" destination="RaU-jE-3jY" id="KFO-iI-MNU"/>
+                        <outlet property="unitsSegmentedControl" destination="2T7-Bq-igV" id="7Fa-Nc-9R9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yll-j2-VIF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="128" y="83"/>
+        </scene>
+    </scenes>
+</document>

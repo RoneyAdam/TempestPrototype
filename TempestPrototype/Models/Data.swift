@@ -10,15 +10,15 @@ import Foundation
 
 struct Station: Decodable {
 	let station_id: Int
-	let station_name: String
-	let public_name: String
+	var station_name: String
+	var public_name: String
 	let latitude: Double
 	let longitude: Double
 	let timezone: String
 	let elevation: Double
-	let is_public: Bool
+	var is_public: Bool
 	let status: Status
-	let station_units: Station_units
+	var station_units: Station_units
 	let outdoor_keys: [String]
 	let obs: [Obs]
 }
@@ -35,7 +35,7 @@ struct Station_units: Codable {
 	let units_pressure: String
 	let units_distance: String
 	let units_direction: String
-	let units_other: String
+	var units_other: String
 }
 
 struct Obs: Codable {

@@ -54,11 +54,6 @@ class MainViewController: UIViewController {
 		setupTitle(weatherStation.station_name)
 		setupTemp(weatherStation.obs[0].air_temperature)
 		setupLocation(weatherStation.latitude, weatherStation.longitude)
-		
-		//Add gesture recognizer to container view
-//		let gestureRecognizer = UIGestureRecognizer(target: self, action: #selector(containerTapped(_:)))
-//		stationContainer.isUserInteractionEnabled = true
-//		stationContainer.addGestureRecognizer(gestureRecognizer)
 	}
 	
 	func setupTitle(_ stationName: String) {
@@ -104,10 +99,6 @@ class MainViewController: UIViewController {
 		} else {
 			print("Weather station is nil!")
 		}
-	}
-	
-	@objc func containerTapped(_ sender: UIGestureRecognizer) {
-		performSegue(withIdentifier: "stationDetail", sender: self)
 	}
 	
 	//MARK: Data Fetching

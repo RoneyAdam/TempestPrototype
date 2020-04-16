@@ -92,7 +92,6 @@ class MainViewController: UIViewController {
 	
 	//MARK: Actions
 	@IBAction func tempUnitChanged(_ sender: UISegmentedControl) {
-		print("seg")
 		//Unwrap weather station and change temperature label value
 		if let weatherStation = weatherStation {
 			setupTemp(weatherStation.obs[0].air_temperature)

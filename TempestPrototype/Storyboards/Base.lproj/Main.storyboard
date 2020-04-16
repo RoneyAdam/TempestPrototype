@@ -11,9 +11,11 @@
         <scene sceneID="Cgq-EL-GDE">
             <objects>
                 <navigationController id="Akn-MK-snM" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XXU-Uv-08a">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="XXU-Uv-08a">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="B0N-KV-90q"/>
@@ -28,11 +30,11 @@
             <objects>
                 <viewController title="Main" id="BYZ-38-t0r" customClass="MainViewController" customModule="TempestPrototype" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ecw-Df-Xpv">
-                                <rect key="frame" x="16" y="104" width="382" height="128"/>
+                                <rect key="frame" x="16" y="16" width="382" height="128"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Tempest:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oib-9T-xJh">
                                         <rect key="frame" x="8" y="8" width="366" height="34"/>
@@ -76,10 +78,10 @@
                                             <constraint firstAttribute="height" constant="44" id="mDk-oJ-hZc"/>
                                             <constraint firstAttribute="width" constant="44" id="xPs-dQ-09P"/>
                                         </constraints>
-                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <state key="normal" image="chevron.right" catalog="system"/>
                                         <connections>
-                                            <segue destination="h24-FR-BCJ" kind="show" id="U5K-yQ-YUw"/>
+                                            <segue destination="h24-FR-BCJ" kind="show" identifier="stationDetail" id="U5K-yQ-YUw"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atg-Md-8nq">
@@ -89,14 +91,14 @@
                                                 <rect key="frame" x="172.5" y="45.5" width="37" height="37"/>
                                             </activityIndicatorView>
                                         </subviews>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="uTA-Xs-NAK" firstAttribute="centerY" secondItem="atg-Md-8nq" secondAttribute="centerY" id="5vg-wq-wo4"/>
                                             <constraint firstItem="uTA-Xs-NAK" firstAttribute="centerX" secondItem="atg-Md-8nq" secondAttribute="centerX" id="KRw-dG-oSX"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="uwh-bI-uzj" firstAttribute="centerY" secondItem="Ecw-Df-Xpv" secondAttribute="centerY" id="0fD-28-5h5"/>
                                     <constraint firstItem="O16-Cy-aps" firstAttribute="leading" secondItem="kkP-1K-OIX" secondAttribute="trailing" constant="8" id="0zw-aQ-w8o"/>
@@ -120,7 +122,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N3V-E2-Zsl">
-                                <rect key="frame" x="16" y="276" width="382" height="570"/>
+                                <rect key="frame" x="16" y="188" width="382" height="570"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>

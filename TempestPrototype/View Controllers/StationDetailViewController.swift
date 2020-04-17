@@ -49,6 +49,9 @@ class StationDetailViewController: UIViewController {
 		setUpElevation(weatherStation.elevation)
 		publicSegmentedControl.isOn = weatherStation.is_public
 		publicTextField.placeholder = weatherStation.public_name
+		
+		//Add notifications for textFields when the keyboard is showing/dismissing
+//		NotificationCenter.default.addObserver(self, selector: #selector(keyboardHandler(notification:)), name: NSNotification.Name.UIResponder.keyboardWillShowNotification, object: nil)
 	}
 	
 	func setupMap(_ lat: Double, _ long: Double, _ title: String) {
@@ -103,6 +106,7 @@ class StationDetailViewController: UIViewController {
 		
 		if let value = numberFormatter.string(from: NSNumber(value: elevation.value)) {
 		elevationLabel.text = "Elevation: \(value)" + valueString
+			
 		}
 	}
 	
@@ -110,7 +114,6 @@ class StationDetailViewController: UIViewController {
 	@IBAction func nameDidEndEditing(_ sender: Any) {
 		if let newName = nameTextField.text {
 			weatherStation?.station_name = newName
-			setupName(newName, id)
 		}
 	}
 	
@@ -123,16 +126,29 @@ class StationDetailViewController: UIViewController {
 	}
 	
 	@IBAction func publicSwitchChanged(_ sender: UISwitch) {
-		//This would be the spot to update the weather's public boolean value using POST
+		//This would be the spot to update the weather's public boolean value on the server
 		weatherStation?.is_public = sender.isOn
 	}
-	@IBAction func publicNameDoneEditing(_ sender: Any) {
+	
+	@IBAction func publicNameDoneEditing(_ sender: UITextField) {
+		//This would be the spot to update the weather's public name value on the server
+		if let name = sender.text {
+			weatherStation?.public_name = name
+		}
 	}
+	
+//	@objc func keyboardHandler(notification: NSNotification) {
+//		if let userInfo = notification.userInfo, let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+//			let frame = keyboardSize.cgRectValue
+//			view.frame.origin.y = view.frame.origin.y == 0 ? (view.frame.origin.y - frame.height) : 0
+//		}
+//	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		//Pass the updated weather station object back to the main view controller
 		if let main = mainViewController {
 			main.weatherStation = weatherStation
+			main.setupLoading()
 		}
 	}
 	

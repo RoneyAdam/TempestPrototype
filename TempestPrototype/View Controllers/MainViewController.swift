@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	//MARK: Outlets
 	@IBOutlet weak var stationContainer: UIView!
@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var locationLabel: UILabel!
 	@IBOutlet weak var loadingContainer: UIView!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet weak var weatherTableView: UITableView!
 	
 	//MARK: Class Variables
 	var weatherStation: Station?
@@ -46,13 +47,18 @@ class MainViewController: UIViewController {
 	
 	//Setup up view: assign values to labels, controls, etc.
 	func setup() {
+		//TableView housekeeping
+		weatherTableView.delegate = self
+		weatherTableView.dataSource = self
+		weatherTableView.tableFooterView = UIView(frame: CGRect.zero)
+		weatherTableView.setNeedsLayout()
+		
 		//Make sure weather station isn't nil
 		guard var weatherStation = weatherStation else {
 			print("Station is nil!"); return
 		}
 
 		//Setup units, title, temperature, and location
-		
 		if let newWeatherStation = updateUnits() {
 			weatherStation = newWeatherStation
 		}
@@ -90,6 +96,7 @@ class MainViewController: UIViewController {
 		}
 		
 		//Update all units based on user defaults
+		//This would also be where I would update the weatherStation object on the server/device
 		let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
 		weatherStation.station_units.units_other = isImperial ? "imperial" : "metric"
 		
@@ -157,6 +164,31 @@ class MainViewController: UIViewController {
 	//Their's a werid dark/light mode bug with the nav bar. This line fixes it.
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		navigationController?.navigationBar.setNeedsLayout()
+	}
+	
+	//MARK: TableView Functions
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 2
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		switch indexPath.row {
+			case 0:
+				let cell = tableView.dequeueReusableCell(withIdentifier: "lightningCell", for: indexPath) as! LightningTableViewCell
+				return cell
+			default:
+				let cell = tableView.dequeueReusableCell(withIdentifier: "airCell", for: indexPath) as! AirTableViewCell
+				return cell
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		switch indexPath.row {
+			case 0:
+				return 104
+			default:
+				return 100
+		}
 	}
 	
 	//MARK: Data Fetching

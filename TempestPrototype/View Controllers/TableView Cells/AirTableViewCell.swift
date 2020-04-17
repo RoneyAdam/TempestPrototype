@@ -9,10 +9,15 @@
 import UIKit
 
 class AirTableViewCell: UITableViewCell {
-	@IBOutlet weak var stationPressure: UILabel!
-	@IBOutlet weak var barometricPressure: UILabel!
-	@IBOutlet weak var sealevelPressure: UILabel!
-	@IBOutlet weak var relativeHumidity: UILabel!
-	@IBOutlet weak var airDensity: UILabel!
+	@IBOutlet weak var wetBulbLabel: UILabel!
+	@IBOutlet weak var humidityLabel: UILabel!
+	@IBOutlet weak var heatIndexLabel: UILabel!
+	@IBOutlet weak var deltaTLabel: UILabel!
+	@IBOutlet weak var airDensityLabel: UILabel!
+	@IBOutlet weak var dewPointLabel: UILabel!
+	
+	func setupLabels(_ isImperial: Bool, _ values: [String : Any]) {
+		
+	}
 	
 }

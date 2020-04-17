@@ -105,8 +105,7 @@ class StationDetailViewController: UIViewController {
 		}
 		
 		if let value = numberFormatter.string(from: NSNumber(value: elevation.value)) {
-		elevationLabel.text = "Elevation: \(value)" + valueString
-			
+			elevationLabel.text = "Elevation: \(value)" + valueString
 		}
 	}
 	

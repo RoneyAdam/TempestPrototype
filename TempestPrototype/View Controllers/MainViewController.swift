@@ -18,15 +18,18 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	@IBOutlet weak var tempImage: UIImageView!
 	@IBOutlet weak var locationLabel: UILabel!
 	@IBOutlet weak var loadingContainer: UIView!
+	@IBOutlet weak var errorImageView: UIImageView!
+	@IBOutlet weak var errorLabel: UILabel!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet weak var weatherTableView: UITableView!
+	//Custom refresh button
 	@IBOutlet weak var refreshButton: UIBarButtonItem! {
 		didSet {
 			if let image = UIImage(systemName: "arrow.2.circlepath") {
 				let imageSize = CGRect(origin: CGPoint.zero, size: image.size)
 				let button = UIButton(frame: imageSize)
 				button.setBackgroundImage(image, for: .normal)
-				button.addTarget(self, action: "refreshTapped", for: .touchUpInside)
+				button.addTarget(self, action: #selector(self.refreshTapped), for: .touchUpInside)
 				refreshButton.customView = button
 			}
 		}
@@ -42,18 +45,25 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupLoading()
+		startProcess()
+    }
+	
+	//Fetch the data
+	func startProcess() {
 		fetchData { weatherStation in
 			self.weatherStation = weatherStation
 			DispatchQueue.main.async {
 				self.setup()
 			}
 		}
-    }
+	}
 
 	//Setup the loading view while fetching the data
 	func setupLoading() {
 		updateStyle()
 		hideRefresh()
+		errorImageView.isHidden = true
+		errorLabel.isHidden = true
 		stationContainer.layer.cornerRadius = 20
 		loadingContainer.layer.cornerRadius = 20
 		activityIndicator.startAnimating()
@@ -63,7 +73,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	func setup() {
 		//Start your timer to check the api again in 1 minute
 		if timer == nil {
-			timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(checkAPI), userInfo: nil, repeats: true)
+			timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(checkAPI), userInfo: nil, repeats: true)
 		}
 		
 		//TableView housekeeping
@@ -138,9 +148,28 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	func setupTemp (_ temp: Double) {
 		//Convert if needed and round (And remove trailing zero)
 		let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
-		let temp = isImperial ? ((temp * 9.0/5.0) + 32).rounded() : temp.rounded()
+		let measurement = Measurement(value: temp, unit: UnitTemperature.celsius)
+		let numberFormatter = NumberFormatter()
+		numberFormatter.maximumFractionDigits = 1
+		var value = isImperial ? measurement.converted(to: .fahrenheit).value : measurement.value
 		
-		tempLabel.text = String(describing: temp).components(separatedBy: ".")[0] + "°" + (isImperial ? " F" : " C")
+		if var value = numberFormatter.string(from: NSNumber(value: value)) {
+			value += isImperial ? "° F" : "° C"
+			tempLabel.text = value
+		}
+		
+		//Changed termperature image based on temperature hot/cold
+		//I gues what is hot/cold is subjective but this is my personal opinion, haha
+		if isImperial && value >= 80  || !isImperial && value >= 26.6 {
+			tempImage.image = UIImage(systemName: "thermometer.sun")
+			tempImage.tintColor = .systemOrange
+		} else if isImperial && value <= 40 || !isImperial && value <= 4.4 {
+			tempImage.image = UIImage(systemName: "thermometer.snowflake")
+			tempImage.tintColor = .systemBlue
+		} else {
+			tempImage.image = UIImage(systemName: "thermometer")
+			tempImage.tintColor = .label
+		}
 	}
 		
 	func setupLocation (_ lat: Double, _ long: Double) {
@@ -169,6 +198,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		})
 	}
 	
+	func handleError() {
+		UIView.animate(withDuration: 0.3, animations: {
+			self.activityIndicator.stopAnimating()
+			self.activityIndicator.isHidden = true
+			self.errorImageView.isHidden = false
+			self.errorLabel.isHidden = false
+			self.refreshButton.isEnabled = true
+			self.refreshButton.customView?.tintColor = .link
+		})
+	}
+	
 	//MARK: Actions
 	@IBAction func settingsTapped(_ sender: Any) {
 		let alertController = UIAlertController(title: nil, message: "/n", preferredStyle: UIAlertController.Style.actionSheet)
@@ -188,10 +228,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		}
 	}
 	//Assign the new weatherStation and start the setup process gain
-	@IBAction func refreshTapped() {
+	@objc func refreshTapped() {
 		refreshButton.customView?.tintColor = .link
 		
-		if let new = newWeatherStation {
+		if !errorImageView.isHidden {
+			startProcess()
+		} else if let new = newWeatherStation {
 			weatherStation = new
 			setupLoading()
 			weatherTableView.reloadData()
@@ -238,27 +280,37 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+		//Check if weather station is nil
+		if let weatherStation = weatherStation {
+			let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
+			let values = weatherStation.obs[0]
+			switch indexPath.section {
+				case 0:
+					if let cell = tableView.dequeueReusableCell(withIdentifier: "lightningCell", for: indexPath) as? LightningTableViewCell {
+						cell.setupLabels(isImperial, values)
+						return cell
+					}
+				case 1:
+					if let cell = tableView.dequeueReusableCell(withIdentifier: "pressureCell", for: indexPath) as? PressureTableViewCell {
+						cell.setupLabels(isImperial, values)
+						return cell
+					}
+				default:
+					if let cell = tableView.dequeueReusableCell(withIdentifier: "airCell", for: indexPath) as? AirTableViewCell {
+						cell.setupLabels(isImperial, values)
+						return cell
+					}
+			}
+			let errorCell = UITableViewCell(style: .default, reuseIdentifier: "error")
+			errorCell.textLabel?.text = "Error loading weather data"
+			return errorCell
+		} else {
+			print("Weather Station is nil")
+			let errorCell = tableView.dequeueReusableCell(withIdentifier: "errorCell", for: indexPath)
+			return errorCell
+		}
 		
-		guard let weatherStation = weatherStation else {
-			print("Weather Station is nil -- returned unedited lightning cell")
-			let cell = tableView.dequeueReusableCell(withIdentifier: "lightningCell")!
-			return cell
-		}
-		let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
-		let values = weatherStation.obs[0]
-		switch indexPath.section {
-			case 0:
-				let cell = tableView.dequeueReusableCell(withIdentifier: "lightningCell", for: indexPath) as! LightningTableViewCell
-				cell.setupLabels(isImperial, values.lightning_strike_last_distance, values.lightning_strike_last_epoch, values.lightning_strike_count_last_3hr)
-				return cell
-			case 1:
-				let cell = tableView.dequeueReusableCell(withIdentifier: "pressureCell", for: indexPath) as! PressureTableViewCell
-				cell.setupLabels(isImperial, values.barometric_pressure, values.station_pressure, values.sea_level_pressure)
-				return cell
-			default:
-				let cell = tableView.dequeueReusableCell(withIdentifier: "airCell", for: indexPath) as! AirTableViewCell
-				return cell
-		}
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -297,6 +349,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 					}
 				} else {
 					print("Session Error: \nStatus code: \(String(describing: response))\nError: \(String(describing: error))")
+					DispatchQueue.main.async {
+						self.handleError()
+					}
 				}
 			}.resume()
 		}

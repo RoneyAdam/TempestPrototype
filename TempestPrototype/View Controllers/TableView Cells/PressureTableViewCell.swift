@@ -14,8 +14,8 @@ class PressureTableViewCell: UITableViewCell {
 	@IBOutlet weak var seaLabel: UILabel!
 	
 	//Setup the pressure labels
-	func setupLabels(_ isImperial: Bool, _ baro: Double, _ station: Double, _ sea: Double) {
-		let measurements = [Measurement(value: baro, unit: UnitPressure.hectopascals), Measurement(value: station, unit: UnitPressure.hectopascals), Measurement(value: sea, unit: UnitPressure.hectopascals)]
+	func setupLabels(_ isImperial: Bool, _ values: Obs) {
+		let measurements = [Measurement(value: values.barometric_pressure, unit: UnitPressure.hectopascals), Measurement(value: values.station_pressure, unit: UnitPressure.hectopascals), Measurement(value: values.sea_level_pressure, unit: UnitPressure.hectopascals)]
 		var convertedMeasurements = [String]()
 		
 		for item in measurements {
@@ -30,6 +30,7 @@ class PressureTableViewCell: UITableViewCell {
 				convertedMeasurements.append(value)
 			}
 		}
+		//Baro and Station seem to always be the same, but I'll show them anyways 
 		if convertedMeasurements.count == 3 {
 			baroLabel.text = "Barometric: \(convertedMeasurements[0])"
 			stationLabel.text = "Station: \(convertedMeasurements[1])"

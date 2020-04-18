@@ -13,8 +13,8 @@ class LightningTableViewCell: UITableViewCell {
 	@IBOutlet weak var lastStrikeDistance: UILabel!
 	@IBOutlet weak var timeSinceLabel: UILabel!
 	
-	func setupLabels(_ isImperial: Bool, _ distance: Int, _ time: Date, _ hoursCount: Int) {
-		strikeCount.text = "Strike Count: \(hoursCount) -- in the last 3 hours"
+	func setupLabels(_ isImperial: Bool, _ values: Obs) {
+		strikeCount.text = "Strike Count: \(values.lightning_strike_count_last_3hr) -- in the last 3 hours"
 		
 		//Get time since last strike (epoch)
 		let formatter = DateComponentsFormatter()
@@ -22,13 +22,13 @@ class LightningTableViewCell: UITableViewCell {
 		formatter.allowedUnits = [.month, .day, .hour, .minute]
 		formatter.maximumUnitCount = 2
 
-		if var value = formatter.string(from: time , to: Date()) {
+		if var value = formatter.string(from: values.lightning_strike_last_epoch , to: Date()) {
 			value = value.replacingOccurrences(of: "hours", with: "hrs")
 			value = value.replacingOccurrences(of: "minutes", with: "mins")
 			timeSinceLabel.text = "\(value) ago"
 		}
 		
-		var measurement = Measurement(value: Double(distance), unit: UnitLength.kilometers)
+		var measurement = Measurement(value: Double(values.lightning_strike_last_distance), unit: UnitLength.kilometers)
 		measurement = isImperial ? measurement.converted(to: .miles) : measurement
 		print(time)
 		let numberFormatter = NumberFormatter()

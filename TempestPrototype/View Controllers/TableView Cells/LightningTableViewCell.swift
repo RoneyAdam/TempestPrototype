@@ -18,13 +18,11 @@ class LightningTableViewCell: UITableViewCell {
 		
 		//Get time since last strike (epoch)
 		let formatter = DateComponentsFormatter()
-		formatter.unitsStyle = .full
+		formatter.unitsStyle = .abbreviated
 		formatter.allowedUnits = [.month, .day, .hour, .minute]
 		formatter.maximumUnitCount = 2
 
-		if var value = formatter.string(from: values.lightning_strike_last_epoch , to: Date()) {
-			value = value.replacingOccurrences(of: "hours", with: "hrs")
-			value = value.replacingOccurrences(of: "minutes", with: "mins")
+		if let value = formatter.string(from: values.lightning_strike_last_epoch , to: Date()) {
 			timeSinceLabel.text = "\(value) ago"
 		}
 		

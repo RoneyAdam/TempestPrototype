@@ -46,13 +46,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="82.7 °F" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkP-1K-OIX">
-                                        <rect key="frame" x="16" y="57.666666666666657" width="56" height="21"/>
+                                        <rect key="frame" x="16" y="65.666666666666657" width="56" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HZe-Nr-jy9">
-                                        <rect key="frame" x="116" y="53.333333333333336" width="32" height="30.666666666666664"/>
+                                        <rect key="frame" x="116" y="61.333333333333336" width="32" height="30.666666666666664"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="ALH-dV-5mj"/>
@@ -60,7 +60,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Daytona Beach, Florida" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEP-2H-3kv">
-                                        <rect key="frame" x="156" y="48" width="174" height="40.666666666666657"/>
+                                        <rect key="frame" x="156" y="56" width="174" height="40.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -86,7 +86,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thermometer" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4lP-qj-Ico">
-                                        <rect key="frame" x="72" y="53" width="32" height="32.333333333333336"/>
+                                        <rect key="frame" x="72" y="61" width="32" height="32.333333333333336"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="cEk-xq-fuG"/>
@@ -141,7 +141,7 @@
                                     <constraint firstItem="uwh-bI-uzj" firstAttribute="leading" secondItem="Oib-9T-xJh" secondAttribute="trailing" constant="8" id="XyO-xS-nIJ"/>
                                     <constraint firstItem="NMY-tH-8Wq" firstAttribute="leading" secondItem="Ecw-Df-Xpv" secondAttribute="leading" constant="8" id="bCx-4t-8tD"/>
                                     <constraint firstItem="mEP-2H-3kv" firstAttribute="centerY" secondItem="HZe-Nr-jy9" secondAttribute="centerY" id="bxA-Cg-ccK"/>
-                                    <constraint firstItem="kkP-1K-OIX" firstAttribute="top" secondItem="Oib-9T-xJh" secondAttribute="bottom" constant="16" id="lKI-vm-LG6"/>
+                                    <constraint firstItem="kkP-1K-OIX" firstAttribute="top" secondItem="Oib-9T-xJh" secondAttribute="bottom" constant="24" id="lKI-vm-LG6"/>
                                     <constraint firstAttribute="bottom" secondItem="atg-Md-8nq" secondAttribute="bottom" id="nI2-m3-xcT"/>
                                     <constraint firstAttribute="trailing" secondItem="atg-Md-8nq" secondAttribute="trailing" id="o46-2v-1qF"/>
                                     <constraint firstAttribute="trailing" secondItem="uwh-bI-uzj" secondAttribute="trailing" constant="8" id="qt5-yw-4O4"/>
@@ -225,8 +225,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyw-gU-8mR">
-                                                    <rect key="frame" x="245" y="48.333333333333336" width="31" height="14.333333333333336"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <rect key="frame" x="245.00000000000003" y="47" width="35.333333333333343" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

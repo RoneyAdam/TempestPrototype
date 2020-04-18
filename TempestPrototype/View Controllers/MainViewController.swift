@@ -211,12 +211,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	//MARK: Actions
 	@IBAction func settingsTapped(_ sender: Any) {
-		let alertController = UIAlertController(title: nil, message: "/n", preferredStyle: UIAlertController.Style.actionSheet)
+		let alertController = UIAlertController(title: nil, message: " ", preferredStyle: UIAlertController.Style.actionSheet)
 		//Add settings VC as a child, then add the view as a subview
 		if let settingsViewController = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as? SettingsViewController {
 			settingsViewController.mainViewController = self
 			alertController.addChild(settingsViewController)
-			alertController.view.addSubview(settingsViewController.view)
+			let settingsView = settingsViewController.view
+			settingsView?.layer.cornerRadius = 12
+			if let view = settingsView {
+				alertController.view.addSubview(view)
+			}
+			
 		}
 
 		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction!) in print("cancel")})

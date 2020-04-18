@@ -14,13 +14,28 @@
                     <view key="view" contentMode="scaleToFill" id="PRK-jE-YzR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8R5-Eq-1nr">
+                                <rect key="frame" x="16" y="244" width="382" height="268"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="8R5-Eq-1nr" firstAttribute="leading" secondItem="BB3-6d-7Im" secondAttribute="leading" constant="16" id="6Fo-VU-9JN"/>
+                            <constraint firstItem="8R5-Eq-1nr" firstAttribute="top" secondItem="BB3-6d-7Im" secondAttribute="top" constant="200" id="PN4-4O-n4m"/>
+                            <constraint firstItem="BB3-6d-7Im" firstAttribute="bottom" secondItem="8R5-Eq-1nr" secondAttribute="bottom" constant="350" id="QJ1-Ag-v5P"/>
+                            <constraint firstItem="BB3-6d-7Im" firstAttribute="trailing" secondItem="8R5-Eq-1nr" secondAttribute="trailing" constant="16" id="Qmw-yt-rxC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="BB3-6d-7Im"/>
                     </view>
+                    <connections>
+                        <outlet property="chartView" destination="PRK-jE-YzR" id="akn-OC-A75"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nfd-1H-9kj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>

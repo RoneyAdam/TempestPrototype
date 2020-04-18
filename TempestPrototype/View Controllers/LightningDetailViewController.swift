@@ -10,22 +10,35 @@ import UIKit
 import Charts
 
 class LightningDetailViewController: UIViewController {
+	
+	//MARK: Class Variables
+	@IBOutlet var chartView: UIView!
+	
+	//MARK: Class Variables
+	var weatherStation: Station? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		/*
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .full
+		formatter.allowedUnits = [.month, .day, .hour, .minute]
+		formatter.maximumUnitCount = 2
 
-        // Do any additional setup after loading the view.
+		if var value = formatter.string(from: values.lightning_strike_last_epoch , to: Date()) {
+			value = value.replacingOccurrences(of: "hours", with: "hrs")
+			value = value.replacingOccurrences(of: "minutes", with: "mins")
+			timeSinceLabel.text = "\(value) ago"
+		}
+		*/
+		for i in 0...5 {
+			let date = Date()
+			let calendar = Calendar.current
+			let hours = calendar.component(.hour, from: date)
+			print(hours)
+		}
+
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

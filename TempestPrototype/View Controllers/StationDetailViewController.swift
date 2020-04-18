@@ -14,20 +14,19 @@ class StationDetailViewController: UIViewController {
 	//MARK: Outlets
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var stationInfoContainer: UIView!
-	
 	@IBOutlet weak var nameTextField: UITextField!
 	@IBOutlet weak var idLabel: UILabel!
 	@IBOutlet weak var addressLabel: UILabel!
 	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var elevationLabel: UILabel!
-	@IBOutlet weak var publicSegmentedControl: UISwitch!
+	@IBOutlet weak var publicSwitch: UISwitch!
 	@IBOutlet weak var publicLabel: UILabel!
 	@IBOutlet weak var publicTextField: UITextField!
 	
 	//MARK: Variables
 	var weatherStation: Station?
 	var mainViewController: MainViewController?
-	var id = 0
+	var nameEdited = false
 	
 	
 	//MARK: Setup Functions
@@ -40,18 +39,19 @@ class StationDetailViewController: UIViewController {
 		guard let weatherStation = weatherStation else {
 			print("Weather stati!n is nil!"); return
 		}
-		id = weatherStation.station_id
 		stationInfoContainer.layer.cornerRadius = 32
 		setupMap(weatherStation.latitude, weatherStation.longitude, weatherStation.station_name)
-		setupName(weatherStation.station_name, id)
+		if let name = UserDefaults.standard.value(forKey: "name") as? String{
+			setupName(name, weatherStation.station_id)
+		}
 		setupAddress(weatherStation.latitude, weatherStation.longitude)
 		setupStatus(weatherStation.status.status_message)
 		setUpElevation(weatherStation.elevation)
-		publicSegmentedControl.isOn = weatherStation.is_public
-		publicTextField.placeholder = weatherStation.public_name
-		
-		//Add notifications for textFields when the keyboard is showing/dismissing
-//		NotificationCenter.default.addObserver(self, selector: #selector(keyboardHandler(notification:)), name: NSNotification.Name.UIResponder.keyboardWillShowNotification, object: nil)
+		publicSwitch.isOn = UserDefaults.standard.bool(forKey: "isPublic")
+		if let publicName = UserDefaults.standard.value(forKey: "publicName") as? String {
+			publicTextField.placeholder = publicName
+		}
+		setupKeyboardManager()
 	}
 	
 	func setupMap(_ lat: Double, _ long: Double, _ title: String) {
@@ -67,7 +67,11 @@ class StationDetailViewController: UIViewController {
 	}
 	
 	func setupName(_ name: String, _ id: Int) {
-		nameTextField.text = name
+		if let defaultName = UserDefaults.standard.value(forKey: "name") as? String {
+			nameTextField.text = defaultName
+		} else {
+			nameTextField.text = name
+		}
 		idLabel.text = "ID: \(id)"
 	}
 	
@@ -109,10 +113,23 @@ class StationDetailViewController: UIViewController {
 		}
 	}
 	
+	func setupKeyboardManager() {
+		//Add notifications for textFields when the keyboard is showing/dismissing
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+		
+		//Add a tap recognizer to view to dismiss keyboard
+		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+		view.addGestureRecognizer(tap)
+	}
+	
 	//MARK: Actions
+	//Can't update on the server, so we'll just use userDefaults for these changes
+	
 	@IBAction func nameDidEndEditing(_ sender: Any) {
+		nameEdited = true
 		if let newName = nameTextField.text {
-			weatherStation?.station_name = newName
+			UserDefaults.standard.set(newName, forKey: "name")
 		}
 	}
 	
@@ -125,30 +142,44 @@ class StationDetailViewController: UIViewController {
 	}
 	
 	@IBAction func publicSwitchChanged(_ sender: UISwitch) {
-		//This would be the spot to update the weather's public boolean value on the server
-		weatherStation?.is_public = sender.isOn
+		UserDefaults.standard.set(sender.isOn, forKey: "isPublic")
 	}
 	
 	@IBAction func publicNameDoneEditing(_ sender: UITextField) {
-		//This would be the spot to update the weather's public name value on the server
 		if let name = sender.text {
-			weatherStation?.public_name = name
+			UserDefaults.standard.set(name, forKey: "publicName")
 		}
 	}
 	
-//	@objc func keyboardHandler(notification: NSNotification) {
-//		if let userInfo = notification.userInfo, let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-//			let frame = keyboardSize.cgRectValue
-//			view.frame.origin.y = view.frame.origin.y == 0 ? (view.frame.origin.y - frame.height) : 0
-//		}
-//	}
+	//Hide keyboard
+	@objc func viewTapped() {
+		view.endEditing(true)
+	}
+	
+	//Change the view's origin when the keyboard appears
+	@objc func keyboardWillChange(_ notification: Notification) {
+		if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+			let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
+			if isKeyboardShowing {
+				print(keyboardSize.height)
+				stationInfoContainer.frame.origin.y -= keyboardSize.height
+			} else {
+				stationInfoContainer.frame.origin.y += keyboardSize.height
+			}
+		}
+	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
-		//Pass the updated weather station object back to the main view controller
-		if let main = mainViewController {
-			main.weatherStation = weatherStation
-			main.setupLoading()
+		super.viewDidDisappear(animated)
+		//Run setup so the values can be updated on the main view controller
+		if let main = mainViewController, nameEdited {
+			main.setup()
 		}
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 	
 }

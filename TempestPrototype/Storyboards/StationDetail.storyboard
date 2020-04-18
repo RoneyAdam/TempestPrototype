@@ -18,13 +18,13 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XMi-Wo-gNT">
                                 <rect key="frame" x="0.0" y="44" width="414" height="537"/>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5e-JA-nZx">
+                            <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5e-JA-nZx">
                                 <rect key="frame" x="0.0" y="517" width="414" height="379"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="Home" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ohM-Ea-vqQ">
                                         <rect key="frame" x="16" y="8" width="78" height="34"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="location"/>
                                         <connections>
                                             <action selector="nameDidEndEditing:" destination="VaS-2s-NgG" eventType="editingDidEnd" id="m0r-AC-33g"/>
                                         </connections>
@@ -72,10 +72,10 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vee-oT-CuX">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vee-oT-CuX">
                                         <rect key="frame" x="159" y="262" width="239" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
                                             <action selector="publicNameDoneEditing:" destination="VaS-2s-NgG" eventType="editingDidEnd" id="6Eo-sG-Iaj"/>
                                         </connections>
@@ -132,7 +132,7 @@
                             <constraint firstItem="S5e-JA-nZx" firstAttribute="leading" secondItem="uz2-RQ-WfR" secondAttribute="leading" id="jd2-Gg-2cI"/>
                             <constraint firstItem="S5e-JA-nZx" firstAttribute="trailing" secondItem="TRA-2K-0F7" secondAttribute="trailing" id="jlC-ll-PnN"/>
                             <constraint firstItem="XMi-Wo-gNT" firstAttribute="trailing" secondItem="TRA-2K-0F7" secondAttribute="trailing" id="l0v-QZ-MPb"/>
-                            <constraint firstAttribute="bottom" secondItem="S5e-JA-nZx" secondAttribute="bottom" id="lPB-8J-peL"/>
+                            <constraint firstItem="TRA-2K-0F7" firstAttribute="bottom" secondItem="S5e-JA-nZx" secondAttribute="bottom" constant="-34" id="lPB-8J-peL"/>
                             <constraint firstItem="XMi-Wo-gNT" firstAttribute="leading" secondItem="TRA-2K-0F7" secondAttribute="leading" id="o0u-QR-xZc"/>
                             <constraint firstItem="S5e-JA-nZx" firstAttribute="top" secondItem="XMi-Wo-gNT" secondAttribute="bottom" constant="-64" id="tFU-17-KGe"/>
                             <constraint firstItem="XMi-Wo-gNT" firstAttribute="top" secondItem="TRA-2K-0F7" secondAttribute="top" id="zEx-ll-fPV"/>
@@ -146,9 +146,9 @@
                         <outlet property="mapView" destination="XMi-Wo-gNT" id="Doc-zs-pOM"/>
                         <outlet property="nameTextField" destination="ohM-Ea-vqQ" id="Xux-p8-weR"/>
                         <outlet property="publicLabel" destination="onK-1M-DBU" id="0us-rx-gWU"/>
-                        <outlet property="publicSegmentedControl" destination="FG7-xl-F5A" id="p5z-OF-NfQ"/>
+                        <outlet property="publicSwitch" destination="FG7-xl-F5A" id="LaI-R9-JIj"/>
                         <outlet property="publicTextField" destination="Vee-oT-CuX" id="ZMd-i9-ElQ"/>
-                        <outlet property="stationInfoContainer" destination="S5e-JA-nZx" id="K5z-wt-S8A"/>
+                        <outlet property="stationInfoContainer" destination="S5e-JA-nZx" id="8y8-Bm-VdW"/>
                         <outlet property="statusLabel" destination="1EQ-pe-d2n" id="z7m-ea-Xjs"/>
                     </connections>
                 </viewController>

@@ -86,22 +86,35 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		guard var weatherStation = weatherStation else {
 			print("Station is nil!"); return
 		}
+		
+		//Run 1 time only
+		if !UserDefaults.standard.bool(forKey: "isSetup") {
+			setupUserDefaults(2, false, weatherStation.is_public, weatherStation.station_name, weatherStation.public_name)
+			UserDefaults.standard.set(true, forKey: "isSetup")
+		}
 
 		//Setup units, title, temperature, and location
 		if let newUnitsWeatherStation = updateUnits() {
 			weatherStation = newUnitsWeatherStation
 		}
-		setupTitle(weatherStation.station_name)
+		if let name = UserDefaults.standard.value(forKey: "name") as? String {
+			setupTitle(name)
+		}
 		setupLocation(weatherStation.latitude, weatherStation.longitude)
+	}
+	
+	//Since I can't update values on the server, we'll use user defaults for these cases
+	func setupUserDefaults(_ theme: Int, _ isImperial: Bool, _ isPublic: Bool, _ name: String, _ publicName: String) {
+		let userDefaults = UserDefaults.standard
+		userDefaults.set(theme, forKey: "theme")
+		userDefaults.set(isImperial, forKey: "isImperial")
+		userDefaults.set(isPublic, forKey: "isPublic")
+		userDefaults.set(name, forKey: "name")
+		userDefaults.set(publicName, forKey: "publicName")
 	}
 	
 	//Setup style
 	func updateStyle() {
-		//Check user defaults for theme key
-		if UserDefaults.standard.object(forKey: "theme") == nil {
-			UserDefaults.standard.set(2, forKey: "theme")
-		}
-		
 		//Update theme
 		UIApplication.shared.windows.forEach({ window in
 			switch UserDefaults.standard.object(forKey: "theme") as? Int {
@@ -118,10 +131,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	func updateUnits() -> Station? {
 		guard var weatherStation = weatherStation else {
 			print("Weather Station is nil!"); return nil
-		}
-		//Check user defaults for units key
-		if UserDefaults.standard.object(forKey: "isImperial") == nil {
-			UserDefaults.standard.set(true, forKey: "isImperial")
 		}
 		
 		//Update all units based on user defaults
@@ -151,7 +160,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		let measurement = Measurement(value: temp, unit: UnitTemperature.celsius)
 		let numberFormatter = NumberFormatter()
 		numberFormatter.maximumFractionDigits = 1
-		var value = isImperial ? measurement.converted(to: .fahrenheit).value : measurement.value
+		let value = isImperial ? measurement.converted(to: .fahrenheit).value : measurement.value
 		
 		if var value = numberFormatter.string(from: NSNumber(value: value)) {
 			value += isImperial ? "° F" : "° C"
@@ -365,14 +374,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	//Check the API and
 	@objc func checkAPI() {
 		fetchData { newWeatherStation in
-			if let oldWeatherStation = self.weatherStation {
-				if oldWeatherStation.obs[0] != newWeatherStation.obs[0] {
-					DispatchQueue.main.async {
-						self.newWeatherStation = newWeatherStation
-						self.refreshButton.isEnabled = true
-						self.refreshButton.customView?.tintColor = .systemRed
-					}
-				}
+			DispatchQueue.main.async {
+				self.newWeatherStation = newWeatherStation
+				self.refreshButton.isEnabled = true
+				self.refreshButton.customView?.tintColor = .systemRed
 			}
 		}
 	}

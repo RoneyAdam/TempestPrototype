@@ -225,7 +225,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyw-gU-8mR">
-                                                    <rect key="frame" x="245.00000000000003" y="47" width="35.333333333333343" height="17"/>
+                                                    <rect key="frame" x="245.00000000000003" y="48" width="35.333333333333343" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -235,9 +235,9 @@
                                                 <constraint firstItem="bYE-lD-5sU" firstAttribute="top" secondItem="iY0-Or-S1P" secondAttribute="bottom" constant="8" id="00A-WD-qsu"/>
                                                 <constraint firstItem="bYE-lD-5sU" firstAttribute="leading" secondItem="iY0-Or-S1P" secondAttribute="leading" id="1Km-nK-CxE"/>
                                                 <constraint firstAttribute="trailing" secondItem="iY0-Or-S1P" secondAttribute="trailing" constant="8" id="GTX-CH-8gJ"/>
+                                                <constraint firstItem="uyw-gU-8mR" firstAttribute="firstBaseline" secondItem="bYE-lD-5sU" secondAttribute="firstBaseline" id="Oif-TL-1e1"/>
                                                 <constraint firstItem="iY0-Or-S1P" firstAttribute="leading" secondItem="g6P-PA-BLp" secondAttribute="leading" id="PUn-YX-7or"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uyw-gU-8mR" secondAttribute="trailing" constant="8" id="RtJ-Bo-rMr"/>
-                                                <constraint firstItem="uyw-gU-8mR" firstAttribute="centerY" secondItem="bYE-lD-5sU" secondAttribute="centerY" id="YQW-RB-g2X"/>
                                                 <constraint firstItem="uyw-gU-8mR" firstAttribute="leading" secondItem="bYE-lD-5sU" secondAttribute="trailing" constant="8" id="jEM-xA-Qe6"/>
                                                 <constraint firstItem="iY0-Or-S1P" firstAttribute="top" secondItem="g6P-PA-BLp" secondAttribute="top" constant="16" id="thI-HN-jWA"/>
                                             </constraints>
@@ -428,6 +428,7 @@
                         <outlet property="stationContainer" destination="Ecw-Df-Xpv" id="biY-Nq-tK9"/>
                         <outlet property="tempImage" destination="4lP-qj-Ico" id="edJ-GI-0hi"/>
                         <outlet property="tempLabel" destination="kkP-1K-OIX" id="u9K-7p-uJe"/>
+                        <outlet property="tempLabelTopConstraint" destination="lKI-vm-LG6" id="uBS-Ok-GqX"/>
                         <outlet property="titleLabel" destination="Oib-9T-xJh" id="7oW-qp-yZ8"/>
                         <outlet property="weatherTableView" destination="N3V-E2-Zsl" id="lA0-8M-mE5"/>
                         <segue destination="WuI-iW-paa" kind="show" identifier="lightningDetail" id="Rdl-4F-mXd"/>

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class StationDetailViewController: UIViewController {
+class StationDetailViewController: UIViewController, UITextFieldDelegate {
 	
 	//MARK: Outlets
 	@IBOutlet weak var mapView: MKMapView!
@@ -49,11 +49,12 @@ class StationDetailViewController: UIViewController {
 		setUpElevation(weatherStation.elevation)
 		publicSwitch.isOn = UserDefaults.standard.bool(forKey: "isPublic")
 		if let publicName = UserDefaults.standard.value(forKey: "publicName") as? String {
-			publicTextField.placeholder = publicName
+			setupPublicTextField(publicName)
 		}
 		setupKeyboardManager()
 	}
 	
+	//Setup the map to show a placemarker for the weather station
 	func setupMap(_ lat: Double, _ long: Double, _ title: String) {
 		let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
 		let annotation = MKPointAnnotation()
@@ -66,7 +67,9 @@ class StationDetailViewController: UIViewController {
 		mapView.addAnnotation(annotation)
 	}
 	
+	//Passing the name as a backup in case something is wrong with user defaults
 	func setupName(_ name: String, _ id: Int) {
+		nameTextField.delegate = self
 		if let defaultName = UserDefaults.standard.value(forKey: "name") as? String {
 			nameTextField.text = defaultName
 		} else {
@@ -97,20 +100,27 @@ class StationDetailViewController: UIViewController {
 		statusLabel.attributedText = statusString
 	}
 	
+	//Setup the elevation. Convert if needed
 	func setUpElevation(_ elevation: Double) {
-		var elevation = Measurement(value: elevation, unit: UnitLength.feet)
+		var elevation = Measurement(value: elevation, unit: UnitLength.meters)
 		let numberFormatter = NumberFormatter()
 		numberFormatter.maximumFractionDigits = 2
 		numberFormatter.string(from: NSNumber(value: elevation.value))
-		var valueString = " ft"
-		if !UserDefaults.standard.bool(forKey: "isImperial") {
-			elevation.convert(to: UnitLength.meters)
-			valueString = " m"
+		var valueString = " m"
+		if UserDefaults.standard.bool(forKey: "isImperial") {
+			elevation.convert(to: UnitLength.feet)
+			valueString = " f"
 		}
 		
 		if let value = numberFormatter.string(from: NSNumber(value: elevation.value)) {
 			elevationLabel.text = "Elevation: \(value)" + valueString
 		}
+	}
+	
+	//Setup public name text field
+	func setupPublicTextField(_ name: String) {
+		publicTextField.delegate = self
+		publicTextField.placeholder = name
 	}
 	
 	func setupKeyboardManager() {
@@ -156,15 +166,17 @@ class StationDetailViewController: UIViewController {
 		view.endEditing(true)
 	}
 	
-	//Change the view's origin when the keyboard appears
+	//Change the view's origin when the keyboard appears, only for the public name though since it's the only one hidden when the keyboard appears
 	@objc func keyboardWillChange(_ notification: Notification) {
 		if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
 			let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
-			if isKeyboardShowing {
-				print(keyboardSize.height)
-				stationInfoContainer.frame.origin.y -= keyboardSize.height
-			} else {
-				stationInfoContainer.frame.origin.y += keyboardSize.height
+			if !nameTextField.isEditing {
+				if isKeyboardShowing {
+					print(keyboardSize.height)
+					stationInfoContainer.frame.origin.y -= keyboardSize.height
+				} else {
+					stationInfoContainer.frame.origin.y += keyboardSize.height
+				}
 			}
 		}
 	}
@@ -177,9 +189,15 @@ class StationDetailViewController: UIViewController {
 		}
 	}
 	
+	//MARK: TextField delegate
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		view.endEditing(true)
+	}
+	
+	//MARK: Deinit
+	//Remove observers on deinit
 	deinit {
 		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
-	
 }

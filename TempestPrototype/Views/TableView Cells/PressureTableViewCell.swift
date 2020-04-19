@@ -30,6 +30,7 @@ class PressureTableViewCell: UITableViewCell {
 				convertedMeasurements.append(value)
 			}
 		}
+		
 		//Baro and Station seem to always be the same, but I'll show them anyways 
 		if convertedMeasurements.count == 3 {
 			baroLabel.text = "Barometric: \(convertedMeasurements[0])"
@@ -37,5 +38,4 @@ class PressureTableViewCell: UITableViewCell {
 			seaLabel.text = "Sea-level: \(convertedMeasurements[2])"
 		}
 	}
-	
 }

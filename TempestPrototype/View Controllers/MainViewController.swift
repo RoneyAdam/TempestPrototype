@@ -15,6 +15,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	@IBOutlet weak var stationContainer: UIView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var tempLabel: UILabel!
+	@IBOutlet weak var tempLabelTopConstraint: NSLayoutConstraint!
 	@IBOutlet weak var tempImage: UIImageView!
 	@IBOutlet weak var locationLabel: UILabel!
 	@IBOutlet weak var loadingContainer: UIView!
@@ -94,12 +95,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		}
 
 		//Setup units, title, temperature, and location
-		if let newUnitsWeatherStation = updateUnits() {
-			weatherStation = newUnitsWeatherStation
-		}
 		if let name = UserDefaults.standard.value(forKey: "name") as? String {
 			setupTitle(name)
 		}
+		setupTemp(weatherStation.obs[0].air_temperature)
 		setupLocation(weatherStation.latitude, weatherStation.longitude)
 	}
 	
@@ -126,24 +125,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 					window.overrideUserInterfaceStyle = .unspecified
 			}
 		})
-	}
-	
-	func updateUnits() -> Station? {
-		guard var weatherStation = weatherStation else {
-			print("Weather Station is nil!"); return nil
-		}
-		
-		//Update all units based on user defaults
-		//This would also be where I would update the weatherStation object on the server/device
-		let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
-		weatherStation.station_units.units_other = isImperial ? "imperial" : "metric"
-		
-		//Set up temperature and reload table because unit has changed
-		setupTemp(weatherStation.obs[0].air_temperature)
-		weatherTableView.reloadData()
-		
-		//Return the weather station that has new station units
-		return weatherStation
 	}
 	
 	func setupTitle(_ stationName: String) {
@@ -207,6 +188,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		})
 	}
 	
+	//Show/hide elementes to handle internet connection being lost
 	func handleError() {
 		UIView.animate(withDuration: 0.3, animations: {
 			self.activityIndicator.stopAnimating()
@@ -216,6 +198,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			self.refreshButton.isEnabled = true
 			self.refreshButton.customView?.tintColor = .link
 		})
+	}
+	
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		//Update the other elements based on the label height
+		if titleLabel.frame.height > 44 {
+			tempLabelTopConstraint.constant = 8
+		} else {
+			tempLabelTopConstraint.constant = 24
+		}
 	}
 	
 	//MARK: Actions
@@ -241,7 +233,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			self.present(alertController, animated: true, completion:{})
 		}
 	}
-	//Assign the new weatherStation and start the setup process gain
+	
+	//First check if you're refreshing from an error, if not assign the new weather station and reload the data
 	@objc func refreshTapped() {
 		refreshButton.customView?.tintColor = .link
 		
@@ -249,9 +242,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			startProcess()
 		} else if let new = newWeatherStation {
 			weatherStation = new
-			setupLoading()
-			weatherTableView.reloadData()
 			setup()
+			weatherTableView.reloadData()
 		}
 	}
 	
@@ -316,6 +308,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 						return cell
 					}
 			}
+			
+			//This cell would only be returned in some kind of weird error scenario
 			let errorCell = UITableViewCell(style: .default, reuseIdentifier: "error")
 			errorCell.textLabel?.text = "Error loading weather data"
 			return errorCell
@@ -327,6 +321,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		
 	}
 	
+	//Set the heights for the cells
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		switch indexPath.section {
 			case 1:
@@ -371,7 +366,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		}
 	}
 	
-	//Check the API and
+	//Check the API and update the UI (There will always be new data -- timestamp and lightingStrike epoch)
 	@objc func checkAPI() {
 		fetchData { newWeatherStation in
 			DispatchQueue.main.async {

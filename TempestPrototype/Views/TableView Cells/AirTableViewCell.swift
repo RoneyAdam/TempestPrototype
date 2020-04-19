@@ -21,7 +21,7 @@ class AirTableViewCell: UITableViewCell {
 		let humidity = values.relative_humidity
 		let airDensity = values.air_density
 		let measurements = [Measurement(value: values.wet_bulb_temperature, unit: UnitTemperature.celsius), Measurement(value: values.heat_index, unit: UnitTemperature.celsius), Measurement(value: values.dew_point, unit: UnitTemperature.celsius)]
-		var convertedMeasurements = [String()]
+		var convertedMeasurements = [String]()
 		
 		let numberFormatter = NumberFormatter()
 		numberFormatter.maximumFractionDigits = 1
@@ -37,10 +37,21 @@ class AirTableViewCell: UITableViewCell {
 			}
 		}
 		
+		wetBulbLabel.text = "Wet Bulb Temperature: \(convertedMeasurements[0])"
+		heatIndexLabel.text = "Feels like: \(convertedMeasurements[1])"
+		dewPointLabel.text = "Dew Point: \(convertedMeasurements[2])"
 		
-		wetBulbLabel.text = "Wet Bulb Temperature: \(convertedMeasurements[1])"
-		heatIndexLabel.text = "Feels like: \(convertedMeasurements[2])"
-		dewPointLabel.text = "Dew Point: \(convertedMeasurements[3])"
+		//From what I've read online, you have to convert Delta T differently than the rest of the temperatures
+		var deltaT = values.delta_t
+		var unit = "° C"
+		if isImperial {
+			deltaT = deltaT * (9/5)
+			unit = "° F"
+		}
+		
+		if let value = numberFormatter.string(from: NSNumber(value: deltaT)) {
+			deltaTLabel.text = "Delta T: \(value)"  + unit
+		}
 		
 		humidityLabel.text = "Humidity: \(humidity)%"
 		
@@ -54,7 +65,5 @@ class AirTableViewCell: UITableViewCell {
 			value.append(units)
 			airDensityLabel.attributedText = value
 		}
-		
 	}
-	
 }

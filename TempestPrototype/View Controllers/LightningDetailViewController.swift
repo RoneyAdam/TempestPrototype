@@ -38,7 +38,5 @@ class LightningDetailViewController: UIViewController {
 			let hours = calendar.component(.hour, from: date)
 			print(hours)
 		}
-
     }
-
 }

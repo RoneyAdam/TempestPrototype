@@ -54,9 +54,9 @@ class SettingsViewController: UIViewController {
 		//Typically this would be where you would update the station on the server, but we'll use user defaults for this sample
 		UserDefaults.standard.set(newValue, forKey: "isImperial")
 		if let main = mainViewController {
-			//Doing this to supress a warning. I don't need to return value
-			let _ = main.updateUnits()
+			main.setup()
+			main.weatherTableView.reloadData()
+			
 		}
 	}
-	
 }

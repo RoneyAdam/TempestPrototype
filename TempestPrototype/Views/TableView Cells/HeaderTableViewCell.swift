@@ -11,5 +11,4 @@ import UIKit
 class HeaderTableViewCell: UITableViewCell {
 	@IBOutlet weak var icon: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
-	
 }

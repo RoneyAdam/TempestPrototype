@@ -37,9 +37,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	}
 	
 	//MARK: Class Variables
+	var dataFetcher: DataFetcher?
 	var weatherStation: Station?
 	var newWeatherStation: Station?
 	var timer: Timer?
+	var unitConverter: UnitConverter?
 	
 	
 	//MARK: Setup Functions
@@ -51,7 +53,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	//Fetch the data
 	func startProcess() {
-		fetchData { weatherStation in
+		dataFetcher = DataFetcher(self)
+		dataFetcher?.fetchData { weatherStation in
 			self.weatherStation = weatherStation
 			DispatchQueue.main.async {
 				self.setup()
@@ -84,9 +87,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		weatherTableView.setNeedsLayout()
 		
 		//Make sure weather station isn't nil
-		guard var weatherStation = weatherStation else {
+		guard let weatherStation = weatherStation else {
 			print("Station is nil!"); return
 		}
+		
+		//Get unit converter
+		unitConverter = UnitConverter()
 		
 		//Run 1 time only
 		if !UserDefaults.standard.bool(forKey: "isSetup") {
@@ -136,29 +142,23 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	}
 	
 	func setupTemp (_ temp: Double) {
-		//Convert if needed and round (And remove trailing zero)
 		let isImperial = UserDefaults.standard.bool(forKey: "isImperial")
-		let measurement = Measurement(value: temp, unit: UnitTemperature.celsius)
-		let numberFormatter = NumberFormatter()
-		numberFormatter.maximumFractionDigits = 1
-		let value = isImperial ? measurement.converted(to: .fahrenheit).value : measurement.value
-		
-		if var value = numberFormatter.string(from: NSNumber(value: value)) {
-			value += isImperial ? "° F" : "° C"
-			tempLabel.text = value
-		}
+		let tempValue = unitConverter?.getStringForTemperatureLabel(temp)
+		tempLabel.text = tempValue?["Text"] as? String
 		
 		//Changed termperature image based on temperature hot/cold
 		//I gues what is hot/cold is subjective but this is my personal opinion, haha
-		if isImperial && value >= 80  || !isImperial && value >= 26.6 {
-			tempImage.image = UIImage(systemName: "thermometer.sun")
-			tempImage.tintColor = .systemOrange
-		} else if isImperial && value <= 40 || !isImperial && value <= 4.4 {
-			tempImage.image = UIImage(systemName: "thermometer.snowflake")
-			tempImage.tintColor = .systemBlue
-		} else {
-			tempImage.image = UIImage(systemName: "thermometer")
-			tempImage.tintColor = .label
+		if let value = tempValue?["Value"] as? Double {
+			if isImperial && value >= 80  || !isImperial && value >= 26.6 {
+				tempImage.image = UIImage(systemName: "thermometer.sun")
+				tempImage.tintColor = .systemOrange
+			} else if isImperial && value <= 40 || !isImperial && value <= 4.4 {
+				tempImage.image = UIImage(systemName: "thermometer.snowflake")
+				tempImage.tintColor = .systemBlue
+			} else {
+				tempImage.image = UIImage(systemName: "thermometer")
+				tempImage.tintColor = .label
+			}
 		}
 	}
 		
@@ -337,38 +337,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		}
 	}
 	
-	//MARK: Data Fetching
-	//Fetch weather data
-	func fetchData(completion: @escaping (Station) -> ()) {
-		
-		let urlString = "https://swd.weatherflow.com/swd/rest/observations/station/15056?token=75df7f48-d250-4d8d-90de-b28d63205ffe"
-		guard let url = URL(string: urlString) else
-		{ print("Error with URL"); return }
-		
-		DispatchQueue.main.async {
-			URLSession.shared.dataTask(with: url) { (data, response, error) in
-				if let status = response as? HTTPURLResponse, let data = data, status.statusCode == 200 && error == nil {
-					do {
-						let decoder = JSONDecoder()
-						decoder.dateDecodingStrategy = .secondsSince1970
-						let weatherStation = try decoder.decode(Station.self, from: data)
-						completion(weatherStation)
-					} catch {
-						print("JSON Decode Error")
-					}
-				} else {
-					print("Session Error: \nStatus code: \(String(describing: response))\nError: \(String(describing: error))")
-					DispatchQueue.main.async {
-						self.handleError()
-					}
-				}
-			}.resume()
-		}
-	}
-	
 	//Check the API and update the UI (There will always be new data -- timestamp and lightingStrike epoch)
 	@objc func checkAPI() {
-		fetchData { newWeatherStation in
+		dataFetcher?.fetchData { newWeatherStation in
 			DispatchQueue.main.async {
 				self.newWeatherStation = newWeatherStation
 				self.refreshButton.isEnabled = true

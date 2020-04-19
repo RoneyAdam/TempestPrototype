@@ -15,27 +15,9 @@ class PressureTableViewCell: UITableViewCell {
 	
 	//Setup the pressure labels
 	func setupLabels(_ isImperial: Bool, _ values: Obs) {
-		let measurements = [Measurement(value: values.barometric_pressure, unit: UnitPressure.hectopascals), Measurement(value: values.station_pressure, unit: UnitPressure.hectopascals), Measurement(value: values.sea_level_pressure, unit: UnitPressure.hectopascals)]
-		var convertedMeasurements = [String]()
-		
-		for item in measurements {
-			var measurement = item
-			if isImperial {
-				measurement.convert(to: .inchesOfMercury)
-			}
-			let numberFormatter = NumberFormatter()
-			numberFormatter.maximumFractionDigits = 2
-			if var value = numberFormatter.string(from: NSNumber(value: measurement.value)) {
-				value += isImperial ? " inHg" : " hPA"
-				convertedMeasurements.append(value)
-			}
-		}
-		
-		//Baro and Station seem to always be the same, but I'll show them anyways 
-		if convertedMeasurements.count == 3 {
-			baroLabel.text = "Barometric: \(convertedMeasurements[0])"
-			stationLabel.text = "Station: \(convertedMeasurements[1])"
-			seaLabel.text = "Sea-level: \(convertedMeasurements[2])"
-		}
+		let unitConverter = UnitConverter()
+		baroLabel.text = "Barometric: \(unitConverter.getStringForPressureLabel(values.barometric_pressure))"
+		stationLabel.text = "Station: \(unitConverter.getStringForPressureLabel(values.station_pressure))"
+		seaLabel.text = "Sea-level: \(unitConverter.getStringForPressureLabel(values.sea_level_pressure))"
 	}
 }

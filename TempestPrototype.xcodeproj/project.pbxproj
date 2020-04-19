@@ -11,6 +11,8 @@
 		103C5D6D244A17AD00780950 /* LightningDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103C5D6C244A17AD00780950 /* LightningDetail.storyboard */; };
 		103C5D6F244A55D500780950 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103C5D6E244A55D500780950 /* HeaderTableViewCell.swift */; };
 		103C5D71244A5AB800780950 /* PressureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103C5D70244A5AB800780950 /* PressureTableViewCell.swift */; };
+		1067B7BB244C9EC6005FB205 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B7BA244C9EC6005FB205 /* DataFetcher.swift */; };
+		1067B7BD244CA276005FB205 /* UnitConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B7BC244CA276005FB205 /* UnitConverter.swift */; };
 		109C3E8424465B0700E08E4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C3E8324465B0700E08E4A /* AppDelegate.swift */; };
 		109C3E8624465B0700E08E4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C3E8524465B0700E08E4A /* SceneDelegate.swift */; };
 		109C3E8B24465B0700E08E4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109C3E8924465B0700E08E4A /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 		103C5D6C244A17AD00780950 /* LightningDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LightningDetail.storyboard; sourceTree = "<group>"; };
 		103C5D6E244A55D500780950 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		103C5D70244A5AB800780950 /* PressureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureTableViewCell.swift; sourceTree = "<group>"; };
+		1067B7BA244C9EC6005FB205 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
+		1067B7BC244CA276005FB205 /* UnitConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConverter.swift; sourceTree = "<group>"; };
 		109C3E8024465B0700E08E4A /* TempestPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempestPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C3E8324465B0700E08E4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		109C3E8524465B0700E08E4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +76,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		1067B7B9244C9E89005FB205 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1067B7BA244C9EC6005FB205 /* DataFetcher.swift */,
+				1067B7BC244CA276005FB205 /* UnitConverter.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		109C3E7724465B0700E08E4A = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +112,7 @@
 				109C3E9824465B3200E08E4A /* Storyboards */,
 				109C3E9724465B1900E08E4A /* View Controllers */,
 				1067B7B8244BE689005FB205 /* Views */,
+				1067B7B9244C9E89005FB205 /* Utils */,
 				109C3E8C24465B0900E08E4A /* Assets.xcassets */,
 				109C3E9124465B0900E08E4A /* Info.plist */,
 			);
@@ -267,6 +281,8 @@
 				109CC1622449528900B0F6A9 /* AirTableViewCell.swift in Sources */,
 				103C5D6B244A179300780950 /* LightningDetailViewController.swift in Sources */,
 				109C3E8424465B0700E08E4A /* AppDelegate.swift in Sources */,
+				1067B7BB244C9EC6005FB205 /* DataFetcher.swift in Sources */,
+				1067B7BD244CA276005FB205 /* UnitConverter.swift in Sources */,
 				109C3E9B24465DC300E08E4A /* Data.swift in Sources */,
 				109C3E8624465B0700E08E4A /* SceneDelegate.swift in Sources */,
 				109C3E9D24465FF000E08E4A /* MainViewController.swift in Sources */,

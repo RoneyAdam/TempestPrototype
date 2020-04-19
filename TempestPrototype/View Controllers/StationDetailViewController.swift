@@ -102,19 +102,8 @@ class StationDetailViewController: UIViewController, UITextFieldDelegate {
 	
 	//Setup the elevation. Convert if needed
 	func setUpElevation(_ elevation: Double) {
-		var elevation = Measurement(value: elevation, unit: UnitLength.meters)
-		let numberFormatter = NumberFormatter()
-		numberFormatter.maximumFractionDigits = 2
-		numberFormatter.string(from: NSNumber(value: elevation.value))
-		var valueString = " m"
-		if UserDefaults.standard.bool(forKey: "isImperial") {
-			elevation.convert(to: UnitLength.feet)
-			valueString = " f"
-		}
-		
-		if let value = numberFormatter.string(from: NSNumber(value: elevation.value)) {
-			elevationLabel.text = "Elevation: \(value)" + valueString
-		}
+		let unitConverter = UnitConverter()
+		elevationLabel.text = "Elevation: \(unitConverter.getStringForSmallLengthLabel(elevation))"
 	}
 	
 	//Setup public name text field
@@ -166,18 +155,18 @@ class StationDetailViewController: UIViewController, UITextFieldDelegate {
 		view.endEditing(true)
 	}
 	
-	//Change the view's origin when the keyboard appears, only for the public name though since it's the only one hidden when the keyboard appears
+	//Change the view's origin when the keyboard appears
 	@objc func keyboardWillChange(_ notification: Notification) {
 		if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
 			let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
-			if !nameTextField.isEditing {
-				if isKeyboardShowing {
-					print(keyboardSize.height)
-					stationInfoContainer.frame.origin.y -= keyboardSize.height
-				} else {
-					stationInfoContainer.frame.origin.y += keyboardSize.height
-				}
+			if isKeyboardShowing {
+				print(keyboardSize.height)
+				stationInfoContainer.frame.origin.y -= keyboardSize.height
+			} else {
+				stationInfoContainer.frame.origin.y += keyboardSize.height
 			}
+			
+			
 		}
 	}
 	

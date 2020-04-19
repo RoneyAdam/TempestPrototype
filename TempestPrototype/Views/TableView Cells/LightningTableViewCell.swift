@@ -26,15 +26,9 @@ class LightningTableViewCell: UITableViewCell {
 			timeSinceLabel.text = "\(value) ago"
 		}
 		
-		var measurement = Measurement(value: Double(values.lightning_strike_last_distance), unit: UnitLength.kilometers)
-		measurement = isImperial ? measurement.converted(to: .miles) : measurement
-		print(time)
-		let numberFormatter = NumberFormatter()
-		numberFormatter.maximumFractionDigits = 0
-		if var value = numberFormatter.string(from: NSNumber(value: measurement.value)) {
-			value += isImperial ? " mi" : " km"
-			lastStrikeDistance.text = "Last Strike Distance: \(value)"
-		}
+		let unit = UnitConverter()
+		lastStrikeDistance.text = "Last Strike Distance: \(unit.getStringForLargeLengthLabel(Double(values.lightning_strike_last_distance)))"
+		
 	}
 	
 }

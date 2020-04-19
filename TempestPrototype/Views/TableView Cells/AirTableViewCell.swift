@@ -20,26 +20,19 @@ class AirTableViewCell: UITableViewCell {
 	func setupLabels(_ isImperial: Bool, _ values: Obs) {
 		let humidity = values.relative_humidity
 		let airDensity = values.air_density
-		let measurements = [Measurement(value: values.wet_bulb_temperature, unit: UnitTemperature.celsius), Measurement(value: values.heat_index, unit: UnitTemperature.celsius), Measurement(value: values.dew_point, unit: UnitTemperature.celsius)]
-		var convertedMeasurements = [String]()
 		
-		let numberFormatter = NumberFormatter()
-		numberFormatter.maximumFractionDigits = 1
-		for item in measurements {
-			var measurement = item
-			if isImperial {
-				measurement.convert(to: .fahrenheit)
-			}
-			
-			if var value = numberFormatter.string(from: NSNumber(value: measurement.value)) {
-				value += isImperial ? "° F" : "° C"
-				convertedMeasurements.append(value)
-			}
+		let unitConverter: UnitConverter = UnitConverter()
+		if let wetBulb = unitConverter.getStringForTemperatureLabel(values.wet_bulb_temperature)["Text"] as? String {
+			wetBulbLabel.text = "Wet Bulb Temperature: \(wetBulb)"
 		}
 		
-		wetBulbLabel.text = "Wet Bulb Temperature: \(convertedMeasurements[0])"
-		heatIndexLabel.text = "Feels like: \(convertedMeasurements[1])"
-		dewPointLabel.text = "Dew Point: \(convertedMeasurements[2])"
+		if let heatIndex = unitConverter.getStringForTemperatureLabel(values.heat_index)["Text"] as? String {
+			heatIndexLabel.text = "Feels like: \(heatIndex)"
+		}
+		
+		if let dewPoint = unitConverter.getStringForTemperatureLabel(values.dew_point)["Text"] as? String {
+			dewPointLabel.text = "Dew Point: \(dewPoint)"
+		}
 		
 		//From what I've read online, you have to convert Delta T differently than the rest of the temperatures
 		var deltaT = values.delta_t
@@ -48,6 +41,9 @@ class AirTableViewCell: UITableViewCell {
 			deltaT = deltaT * (9/5)
 			unit = "° F"
 		}
+		
+		let numberFormatter = NumberFormatter()
+		numberFormatter.maximumFractionDigits = 1
 		
 		if let value = numberFormatter.string(from: NSNumber(value: deltaT)) {
 			deltaTLabel.text = "Delta T: \(value)"  + unit

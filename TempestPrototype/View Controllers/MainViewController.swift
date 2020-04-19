@@ -18,6 +18,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	@IBOutlet weak var tempLabelTopConstraint: NSLayoutConstraint!
 	@IBOutlet weak var tempImage: UIImageView!
 	@IBOutlet weak var locationLabel: UILabel!
+	@IBOutlet weak var locationImage: UIImageView!
 	@IBOutlet weak var loadingContainer: UIView!
 	@IBOutlet weak var errorImageView: UIImageView!
 	@IBOutlet weak var errorLabel: UILabel!
@@ -71,6 +72,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		stationContainer.layer.cornerRadius = 20
 		loadingContainer.layer.cornerRadius = 20
 		activityIndicator.startAnimating()
+		locationLabel.isHidden = true
+		locationImage.isHidden = true
+		tempImage.isHidden = true
+		tempLabel.isHidden = true
 	}
 	
 	//Setup up view: assign values to labels, controls, etc.
@@ -185,6 +190,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		//Hide loading view when setup is complete
 		UIView.animate(withDuration: 0.3, animations: {
 			self.loadingContainer.isHidden = true
+			self.locationLabel.isHidden = false
+			self.locationImage.isHidden = false
+			self.tempImage.isHidden = false
+			self.tempLabel.isHidden = false
 		})
 	}
 	

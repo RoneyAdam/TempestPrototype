@@ -432,7 +432,7 @@
                         <outlet property="tempLabelTopConstraint" destination="lKI-vm-LG6" id="uBS-Ok-GqX"/>
                         <outlet property="titleLabel" destination="Oib-9T-xJh" id="7oW-qp-yZ8"/>
                         <outlet property="weatherTableView" destination="N3V-E2-Zsl" id="lA0-8M-mE5"/>
-                        <segue destination="WuI-iW-paa" kind="show" identifier="lightningDetail" id="Rdl-4F-mXd"/>
+                        <segue destination="WuI-iW-paa" kind="show" identifier="charts" id="Rdl-4F-mXd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -449,10 +449,10 @@
             </objects>
             <point key="canvasLocation" x="733" y="123"/>
         </scene>
-        <!--LightningDetail-->
+        <!--Charts-->
         <scene sceneID="Oqm-z4-0Ix">
             <objects>
-                <viewControllerPlaceholder storyboardName="LightningDetail" id="WuI-iW-paa" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Charts" id="WuI-iW-paa" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="s9a-JE-etV"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z4o-Ia-Gm3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

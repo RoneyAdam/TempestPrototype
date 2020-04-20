@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MIc-Sx-h3r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Charts-->
+        <scene sceneID="nkg-Lc-1pS">
+            <objects>
+                <viewController id="MIc-Sx-h3r" userLabel="Charts" customClass="ChartsViewController" customModule="TempestPrototype" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PRK-jE-YzR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="80q-aR-wCy">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chartCell" rowHeight="250" id="DSc-uf-gOo" customClass="ChartTableViewCell" customModule="TempestPrototype" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="250"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DSc-uf-gOo" id="lI0-HI-VvH">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8R5-Eq-1nr" customClass="Chart" customModule="SwiftChart">
+                                                    <rect key="frame" x="36" y="22" width="342" height="206"/>
+                                                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="382" id="4Oa-ku-A8A"/>
+                                                        <constraint firstAttribute="height" constant="228" id="SLr-pS-z5D"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="axesColor">
+                                                            <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="gridColor">
+                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8R5-Eq-1nr" firstAttribute="leading" secondItem="lI0-HI-VvH" secondAttribute="leadingMargin" constant="16" id="DUj-rI-tg1"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8R5-Eq-1nr" secondAttribute="trailing" constant="16" id="Jlq-2Z-pwX"/>
+                                                <constraint firstItem="8R5-Eq-1nr" firstAttribute="top" secondItem="lI0-HI-VvH" secondAttribute="topMargin" constant="11" id="ovu-PW-lOt"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="8R5-Eq-1nr" secondAttribute="bottom" constant="11" id="xvS-cW-vay"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="chartView" destination="8R5-Eq-1nr" id="9Ss-aT-sYg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="80q-aR-wCy" firstAttribute="top" secondItem="BB3-6d-7Im" secondAttribute="top" id="Apm-iw-Klx"/>
+                            <constraint firstItem="BB3-6d-7Im" firstAttribute="bottom" secondItem="80q-aR-wCy" secondAttribute="bottom" id="Qf8-c4-BrK"/>
+                            <constraint firstItem="BB3-6d-7Im" firstAttribute="trailing" secondItem="80q-aR-wCy" secondAttribute="trailing" id="oeO-ft-lkL"/>
+                            <constraint firstItem="80q-aR-wCy" firstAttribute="leading" secondItem="BB3-6d-7Im" secondAttribute="leading" id="uye-ZK-956"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BB3-6d-7Im"/>
+                    </view>
+                    <connections>
+                        <outlet property="chartTableView" destination="80q-aR-wCy" id="b15-a2-7Rk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nfd-1H-9kj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+</document>

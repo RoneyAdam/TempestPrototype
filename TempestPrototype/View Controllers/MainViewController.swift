@@ -121,6 +121,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		userDefaults.set(isPublic, forKey: "isPublic")
 		userDefaults.set(name, forKey: "name")
 		userDefaults.set(publicName, forKey: "publicName")
+		userDefaults.set([String: Double](), forKey: "tempDict")
+		userDefaults.set([String: Double](), forKey: "pressureDict")
+		userDefaults.set([String: Int](), forKey: "humidityDict")
 	}
 	
 	//Setup style
@@ -342,7 +345,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if indexPath.row == 0 {
-			performSegue(withIdentifier: "lightningDetail", sender: self)
+			performSegue(withIdentifier: "charts", sender: self)
 		}
 	}
 	

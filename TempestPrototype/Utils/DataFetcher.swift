@@ -10,12 +10,14 @@ import Foundation
 
 class DataFetcher {
 	//MARK: Class Variables
-	var main: MainViewController
+	var main: MainViewController?
 	
 	
 	//MARK: Init
-	init(_ main: MainViewController) {
-		self.main = main
+	init(_ main: MainViewController?) {
+		if let main = main {
+			self.main = main
+		}
 	}
 	
 	
@@ -41,7 +43,9 @@ class DataFetcher {
 				} else {
 					print("Session Error: \nStatus code: \(String(describing: response))\nError: \(String(describing: error))")
 					DispatchQueue.main.async {
-						self.main.handleError()
+						if let main = self.main {
+							main.handleError()
+						}
 					}
 				}
 			}.resume()

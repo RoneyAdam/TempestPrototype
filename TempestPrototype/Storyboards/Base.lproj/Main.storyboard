@@ -152,7 +152,7 @@
                                     <constraint firstItem="kkP-1K-OIX" firstAttribute="leading" secondItem="Ecw-Df-Xpv" secondAttribute="leading" constant="16" id="yc4-IO-6pY"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N3V-E2-Zsl">
+                            <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N3V-E2-Zsl">
                                 <rect key="frame" x="16" y="160" width="382" height="598"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="separatorColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -432,7 +432,6 @@
                         <outlet property="tempLabelTopConstraint" destination="lKI-vm-LG6" id="uBS-Ok-GqX"/>
                         <outlet property="titleLabel" destination="Oib-9T-xJh" id="7oW-qp-yZ8"/>
                         <outlet property="weatherTableView" destination="N3V-E2-Zsl" id="lA0-8M-mE5"/>
-                        <segue destination="WuI-iW-paa" kind="show" identifier="lightningDetail" id="Rdl-4F-mXd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -447,17 +446,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ps-gO-C1q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="733" y="123"/>
-        </scene>
-        <!--LightningDetail-->
-        <scene sceneID="Oqm-z4-0Ix">
-            <objects>
-                <viewControllerPlaceholder storyboardName="LightningDetail" id="WuI-iW-paa" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="s9a-JE-etV"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z4o-Ia-Gm3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="772" y="156"/>
+            <point key="canvasLocation" x="737" y="139"/>
         </scene>
         <!--Storyboard Reference-->
         <scene sceneID="Jvr-bw-2Zs">

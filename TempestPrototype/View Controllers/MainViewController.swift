@@ -340,12 +340,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		}
 	}
 	
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if indexPath.row == 0 {
-			performSegue(withIdentifier: "lightningDetail", sender: self)
-		}
-	}
-	
 	//Check the API and update the UI (There will always be new data -- timestamp and lightingStrike epoch)
 	@objc func checkAPI() {
 		dataFetcher?.fetchData { newWeatherStation in

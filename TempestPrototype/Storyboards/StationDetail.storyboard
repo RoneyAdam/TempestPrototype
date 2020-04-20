@@ -77,7 +77,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
-                                            <action selector="publicNameDidBeginEditing:" destination="VaS-2s-NgG" eventType="editingDidBegin" id="wIQ-49-rod"/>
                                             <action selector="publicNameDoneEditing:" destination="VaS-2s-NgG" eventType="editingDidEnd" id="6Eo-sG-Iaj"/>
                                         </connections>
                                     </textField>

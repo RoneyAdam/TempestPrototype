@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		103C5D6D244A17AD00780950 /* LightningDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103C5D6C244A17AD00780950 /* LightningDetail.storyboard */; };
 		103C5D6F244A55D500780950 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103C5D6E244A55D500780950 /* HeaderTableViewCell.swift */; };
 		103C5D71244A5AB800780950 /* PressureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103C5D70244A5AB800780950 /* PressureTableViewCell.swift */; };
 		1067B7BB244C9EC6005FB205 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B7BA244C9EC6005FB205 /* DataFetcher.swift */; };
@@ -25,11 +24,9 @@
 		109CC15A2448FAF100B0F6A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109CC1592448FAF100B0F6A9 /* SettingsViewController.swift */; };
 		109CC1602449527500B0F6A9 /* LightningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109CC15F2449527500B0F6A9 /* LightningTableViewCell.swift */; };
 		109CC1622449528900B0F6A9 /* AirTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109CC1612449528900B0F6A9 /* AirTableViewCell.swift */; };
-		7E13D49E6650BFA9F681D61E /* libPods-TempestPrototype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33725A20E675B242B7C3E209 /* libPods-TempestPrototype.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		103C5D6C244A17AD00780950 /* LightningDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LightningDetail.storyboard; sourceTree = "<group>"; };
 		103C5D6E244A55D500780950 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		103C5D70244A5AB800780950 /* PressureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureTableViewCell.swift; sourceTree = "<group>"; };
 		1067B7BA244C9EC6005FB205 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
@@ -49,9 +46,6 @@
 		109CC1592448FAF100B0F6A9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		109CC15F2449527500B0F6A9 /* LightningTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningTableViewCell.swift; sourceTree = "<group>"; };
 		109CC1612449528900B0F6A9 /* AirTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTableViewCell.swift; sourceTree = "<group>"; };
-		33725A20E675B242B7C3E209 /* libPods-TempestPrototype.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TempestPrototype.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		55F23B14F44C3973598EFE0A /* Pods-TempestPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempestPrototype.debug.xcconfig"; path = "Target Support Files/Pods-TempestPrototype/Pods-TempestPrototype.debug.xcconfig"; sourceTree = "<group>"; };
-		9EE7D6C737CB36C774778B7F /* Pods-TempestPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempestPrototype.release.xcconfig"; path = "Target Support Files/Pods-TempestPrototype/Pods-TempestPrototype.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E13D49E6650BFA9F681D61E /* libPods-TempestPrototype.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +82,6 @@
 				109C3E8224465B0700E08E4A /* TempestPrototype */,
 				109C3E8124465B0700E08E4A /* Products */,
 				7E62739971A8E4511F34742F /* Pods */,
-				26147B11232714515F118ACF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,7 +126,6 @@
 				109C3E8E24465B0900E08E4A /* LaunchScreen.storyboard */,
 				109C3E9E2447B9B900E08E4A /* StationDetail.storyboard */,
 				109CC1572448F41900B0F6A9 /* Settings.storyboard */,
-				103C5D6C244A17AD00780950 /* LightningDetail.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -158,19 +149,9 @@
 			path = "TableView Cells";
 			sourceTree = "<group>";
 		};
-		26147B11232714515F118ACF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				33725A20E675B242B7C3E209 /* libPods-TempestPrototype.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7E62739971A8E4511F34742F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				55F23B14F44C3973598EFE0A /* Pods-TempestPrototype.debug.xcconfig */,
-				9EE7D6C737CB36C774778B7F /* Pods-TempestPrototype.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -182,7 +163,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 109C3E9424465B0900E08E4A /* Build configuration list for PBXNativeTarget "TempestPrototype" */;
 			buildPhases = (
-				5D700DB552D66199AEB2BCC1 /* [CP] Check Pods Manifest.lock */,
 				109C3E7C24465B0700E08E4A /* Sources */,
 				109C3E7D24465B0700E08E4A /* Frameworks */,
 				109C3E7E24465B0700E08E4A /* Resources */,
@@ -236,7 +216,6 @@
 			files = (
 				109C3E9F2447B9B900E08E4A /* StationDetail.storyboard in Resources */,
 				109C3E9024465B0900E08E4A /* LaunchScreen.storyboard in Resources */,
-				103C5D6D244A17AD00780950 /* LightningDetail.storyboard in Resources */,
 				109C3E8D24465B0900E08E4A /* Assets.xcassets in Resources */,
 				109C3E8B24465B0700E08E4A /* Main.storyboard in Resources */,
 				109CC1582448F41900B0F6A9 /* Settings.storyboard in Resources */,
@@ -244,31 +223,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5D700DB552D66199AEB2BCC1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TempestPrototype-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		109C3E7C24465B0700E08E4A /* Sources */ = {
@@ -428,7 +382,6 @@
 		};
 		109C3E9524465B0900E08E4A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55F23B14F44C3973598EFE0A /* Pods-TempestPrototype.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -448,7 +401,6 @@
 		};
 		109C3E9624465B0900E08E4A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EE7D6C737CB36C774778B7F /* Pods-TempestPrototype.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

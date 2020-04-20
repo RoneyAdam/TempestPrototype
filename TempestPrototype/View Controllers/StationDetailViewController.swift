@@ -150,6 +150,12 @@ class StationDetailViewController: UIViewController, UITextFieldDelegate {
 		}
 	}
 	
+	override func viewWillLayoutSubviews() {
+		if !publicTextField.isEditing {
+			super.viewWillLayoutSubviews()
+		}
+	}
+	
 	//Hide keyboard
 	@objc func viewTapped() {
 		view.endEditing(true)
@@ -160,7 +166,6 @@ class StationDetailViewController: UIViewController, UITextFieldDelegate {
 		if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
 			let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
 			if isKeyboardShowing {
-				print(keyboardSize.height)
 				stationInfoContainer.frame.origin.y -= keyboardSize.height
 			} else {
 				stationInfoContainer.frame.origin.y += keyboardSize.height
